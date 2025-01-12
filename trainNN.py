@@ -53,7 +53,7 @@ val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 # create model
 num_classes = len(class_names)
 
-base_model = tf.keras.applications.EfficientNetB7(
+base_model = tf.keras.applications.EfficientNetB0(
     input_shape=(img_height, img_width, 3),
     include_top=False,
     weights='imagenet'
@@ -104,4 +104,4 @@ model.fit(
     callbacks=[tensorboard_callback]
 )
 
-model.save_weights("./savedModels/architecture_style_classifier_weights_b7.h5")
+model.save_weights("./savedModels/architecture_style_classifier_weights.h5")
