@@ -9,6 +9,9 @@ from config import TOKEN, class_names_ua, class_names_en
 from model import model, img_width, img_height
 import tensorflow as tf
 
+from keep_alive import keep_alive
+keep_alive()
+
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
