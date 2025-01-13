@@ -1,0 +1,4 @@
+aiogram
+tensorflow
+pillow
+flask
