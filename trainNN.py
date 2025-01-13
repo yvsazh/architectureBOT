@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import PIL
+from PIL import Image
 import tensorflow as tf
 
 from tensorflow import keras
@@ -12,13 +13,31 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 import datetime
 
 import pathlib
+import imghdr
+import os
+from pathlib import Path
 
 if tf.test.is_gpu_available():
 	print("I am using GPU!!!")
 else:
 	print("I am NOT using GPU!!!")
 
-dataset_dir = pathlib.Path("./architectural-styles-dataset/")
+dataset_dir = pathlib.Path("./arcDataset2/")
+data_dir = pathlib.Path("./arcDataset2/")
+
+image_extensions = [".png", ".jpg"]  # add there all your images file extensions
+
+img_type_accepted_by_tf = ["bmp", "gif", "jpeg", "png"]
+for filepath in Path(data_dir).rglob("*"):
+    if filepath.suffix.lower() in image_extensions:
+        img_type = imghdr.what(filepath)
+        if img_type is None:
+            print(f"{filepath} is not an image")
+            # os.remove(filepath)
+        elif img_type not in img_type_accepted_by_tf:
+            print(f"{filepath} is a {img_type}, not accepted by TensorFlow")
+            # os.remove(filepath)
+
 log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = TensorBoard(log_dir=log_dir, histogram_freq=1)
 
@@ -81,20 +100,7 @@ model.compile(
 
 model.summary()
 
-epochs = 25
-
-# checkpoint_dir = "./checkpoints"
-# checkpoint_path = f"{checkpoint_dir}/model_epoch{{epoch:02d}}_val_loss{{val_loss:.2f}}"
-
-# # Callbacks для збереження моделі
-# checkpoint_callback = ModelCheckpoint(
-#     filepath=checkpoint_path,      # Куди зберігати модель
-#     monitor='val_loss',            # Моніторинг метрики (наприклад, валідаційної втрати)
-#     save_best_only=True,           # Зберігати лише найкращу модель
-#     save_weights_only=False,       # Зберігати всю модель (ваги + архітектуру)
-#     mode='min',                    # Найкраще значення — мінімум
-#     verbose=1                      # Вивід прогресу в консоль
-# )
+epochs = 20
 
 # Навчання
 model.fit(

@@ -58,7 +58,6 @@ def predictOnImage(image_url):
             # Робимо передбачення
             predictions = model.predict(img_array)
             score = tf.nn.softmax(predictions[0])
-
             # Виводимо результат
             print("Будівля побудована у стилі {} ({:.2f}% вероятность)".format(
                 class_names[np.argmax(score)],
