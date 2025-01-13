@@ -86,4 +86,4 @@ model = Sequential([
     layers.Dense(num_classes, activation='softmax')  # Останній шар
 ])
 
-model.load_weights("architecture_style_classifier_weights_v2.h5")
+model.load_weights(os.path.join("architecture_style_classifier_weights_v2.h5"))
