@@ -1,4 +1,3 @@
-tensorboard --logdir logs/fit
+Щоб запустити телеграм бот, у папці app треба запустити bot.py.
 
-from tensorflow.keras.models import load_model
-model = load_model("path_to_model_directory")
+Для його роботи потрібен: aiogram, tensorflow, flask...
